@@ -1,7 +1,7 @@
-# mbg_get_artists_url_02.py
-# Version a02
+# mbg_get_artists_url_03.py
+# Version a03
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
-# June 29th 2017
+# July 6th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -9,7 +9,8 @@
 # Fetches artists from MusicBrainz (based upon the Echo Nest artists)
 # Writes XML to `results/mb_artists_mbg_get_artists_url.txt'
 # Depends upon `data/en_mb_map.txt' for input (`NAME ^ ENID ^ MBID')
-# URL requests version
+# URL-requests version
+# Time-sliced artist lists catered for in this version
 
 # Import packages
 import os
@@ -23,7 +24,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-versionNumber = ("a02")
+versionNumber = ("a03")
 appName = ("mbg_get_artists_url_")
 
 # Initiate timing of run
@@ -51,13 +52,25 @@ print ('\n' + "MusicBrainz Get Artists | " + appName + " | Version " + versionNu
 runLog.write ("==========================================================================" + '\n' + '\n')
 runLog.write ("MusicBrainz Get Artists | " + appName + " | Version " + versionNumber + '\n' + '\n')
 
+# Get user input
+dateIP = int(input("Enter an Omega Year to use time-sliced mapping (or 0 to use the full map): "))
+omegaYear = str(dateIP)
+
 # Open file for writing results
-resultsPath = os.path.join("results", 'mb_artists_' + appName + versionNumber + '.txt')
+if dateIP == 0:
+	resultsPath = os.path.join("results", 'mb_artists_' + appName + versionNumber + '.txt')
+else:
+	resultsPath = os.path.join("results", omegaYear + '_mb_artists_' + appName + versionNumber + '.txt')
+
 resultsFile = open(resultsPath, 'w')
 
 # Get input and process
-idInputPath = os.path.join("data", 'en_mb_map.txt')
-idInput = open (idInputPath, 'r').readlines()
+if dateIP == 0:
+	idInputPath = os.path.join("data", 'en_mb_map.txt')
+	idInput = open (idInputPath, 'r').readlines()
+else:
+	idInputPath = os.path.join("data", omegaYear + '_en_mb_map.txt')
+	idInput = open (idInputPath, 'r').readlines()
 
 # Get artist IDs from input file, and interrogate MusicBrainz for each
 for line in idInput:
@@ -85,8 +98,10 @@ resultsFile.close()
 endTime = datetime.now()
 print
 print ("Complete.")
+print ("Omega Year: " + omegaYear)
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
+runLog.write ("Omega Year: " + omegaYear + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 
