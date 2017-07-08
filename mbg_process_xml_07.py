@@ -1,7 +1,7 @@
 # mbg_process_xml_07.py
 # Version a07
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
-# July 5th 2017
+# July 7th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -118,6 +118,8 @@ for line in xmlInput:
 	'''
 
 	# Try specific things.
+	tagNames = []
+	del tagNames [:]
 	print ('\n' + "Iter method: ")
 	print >> runLog, '\n' + "Iter Method: "
 
@@ -152,7 +154,15 @@ for line in xmlInput:
 		print >> runLog, elem.tag, elem.attrib, elem.text
 		artistCountry = str(elem.text)
 
-	resultsFile.write(artistID + ',' + artistType + ',' + artistBegin + ',' + artistCountry + '\n')
+	for elem in tree.iterfind('artist/tag-list/tag/name'): 
+		print ('\n' + "tree.iterfind('artist/tag-list/tag/name'): ")
+		print >> runLog, '\n' + "tree.iterfind('artist/tag-list/tag/name'): "
+		print elem.tag, elem.attrib, elem.text
+		print >> runLog, elem.tag, elem.attrib, elem.text
+		tagName = str(elem.text)
+		tagNames.append(tagName)
+
+	resultsFile.write(artistID + ',' + artistType + ',' + artistBegin + ',' + artistCountry + ',' + str(tagNames) + '\n')
 
 resultsFile.close()
 
