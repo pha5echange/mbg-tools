@@ -1,12 +1,13 @@
-# mbg_process_xml_07.py
-# Version a07
+# mbg_process_xml_08.py
+# Version a08
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
-# July 7th 2017
+# July 13th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
 # Processes XML file `results/mb_artists_mbg_get_artists_url.txt'
+# Removes duplicate lines
 
 # Import packages
 import os
@@ -19,7 +20,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-versionNumber = ("a07")
+versionNumber = ("a08")
 appName = ("mbg_process_xml_")
 namespace = "{http://musicbrainz.org/ns/mmd-2.0#}"
 
@@ -52,7 +53,7 @@ runLog.write ("=================================================================
 runLog.write ("Process MusicBrainz XML | " + appName + " | Version " + versionNumber + '\n' + '\n')
 
 # Open file for writing results
-resultsPath = os.path.join("results", 'mb_artist_processed_xml_' + appName + versionNumber + '.txt')
+resultsPath = os.path.join("results", 'mb_artist_xml_' + versionNumber + '.txt')
 resultsFile = open(resultsPath, 'w')
 
 # Get input and process
@@ -81,43 +82,7 @@ for line in xmlInput:
 	tree = eT.ElementTree(file='data/tempXML.xml')
 	root = tree.getroot()
 
-	# Replace all the crap below with proper XPath stuff to get those fricking 
-	# <tag-list><tag><name>TEXT</name></tag></tag-list> objects.
-
-	'''
-	# Look for all the things and print etc.
-	print ('\n' + "Root: ")
-	print >> runLog, '\n' + "Root: "
-	print root.tag, root.attrib, root.text
-	print >> runLog, root.tag, root.attrib, root.text
-
-	for child_of_root in root:
-		print('\n' + "Child of Root: ")
-		print >> runLog, '\n' + "Child of Root: "
-		print child_of_root.tag, child_of_root.attrib, child_of_root.text
-		print >> runLog, child_of_root.tag, child_of_root.attrib, child_of_root.text
-
-		for child_of_child in child_of_root:
-			print('\n' + "Child of Child: ")
-			print >> runLog, '\n' + "Child of Child: "
-			print child_of_child.tag, child_of_child.attrib, child_of_child.text
-			print >> runLog, child_of_child.tag, child_of_child.attrib, child_of_child.text
-
-			for child_of_child_of_child in child_of_child:
-				print('\n' + "Child of Child of Child: ")
-				print >> runLog, '\n' + "Child of Child of Child: "
-				print child_of_child_of_child.tag, child_of_child_of_child.attrib, child_of_child_of_child.text
-				print >> runLog, child_of_child_of_child.tag, child_of_child_of_child.attrib, child_of_child_of_child.text
-
-				for child_of_child_of_child_of_child in child_of_child_of_child:
-					print('\n' + "Child of Child of Child of Child: ")
-					print >> runLog, '\n' + "Child of Child of Child of Child: "
-					print child_of_child_of_child_of_child.tag, child_of_child_of_child_of_child.attrib, child_of_child_of_child_of_child.text
-					print >> runLog, child_of_child_of_child_of_child.tag, child_of_child_of_child_of_child.attrib, child_of_child_of_child_of_child.text
-
-	'''
-
-	# Try specific things.
+	# Get the things
 	tagNames = []
 	del tagNames [:]
 	print ('\n' + "Iter method: ")
@@ -162,18 +127,30 @@ for line in xmlInput:
 		tagName = str(elem.text)
 		tagNames.append(tagName)
 
-	resultsFile.write(artistID + ',' + artistType + ',' + artistBegin + ',' + artistCountry + ',' + str(tagNames) + '\n')
+	resultsFile.write(artistID + '^' + artistType + '^' + artistBegin + '^' + artistCountry + '^' + str(tagNames) + '\n')
 
 resultsFile.close()
+
+# Remove duplicates
+cleanLineCounter = 0
+lines = open(resultsPath, 'r').readlines()
+lines_set = set(lines)
+out = open(resultsPath, 'w')
+
+for line in sorted(lines_set):
+	out.write(line)
+	cleanLineCounter +=1
 
 # End timing of run
 endTime = datetime.now()
 print
 print ("Complete.")
 print ("Lines processed: " + str(lineCounter))
+print ("Lines written: " + str(cleanLineCounter))
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 runLog.write ('\n' + "Lines processed: " + str(lineCounter) + '\n')
+runLog.write ("Lines written: " + str(cleanLineCounter) + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 
