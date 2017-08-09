@@ -12,9 +12,9 @@ versionNumber = "a02"
 appName = "mbg_plot_countries_"
 
 # Pie chart
-colors=('b', 'g', 'r', 'c', 'm', 'y', 'c', 'w', 'silver', 'palegreen', 'lightsteelblue')
-labels = 'USA', 'UK', 'Germany', 'France', 'Sweden', 'Canada', 'Italy', 'Japan', 'Finland', 'Spain', 'Others (170 countries)'
-sizes = [36.4, 12.2, 5.9, 4.2, 3.3, 3.1, 3, 2.7, 2.3, 1.9, 25]
+colors=('lightblue', 'lightgray', 'lightcoral', 'lightsteelblue', 'lightyellow', 'lightsalmon', 'lightseagreen', 'white', 'silver', 'palegoldenrod', 'palegreen')
+labels = 'USA', 'UK', 'Germany', 'France', 'Japan', 'Canada', 'Sweden', 'Italy', 'Finland', 'Australia', 'Others (116 countries)'
+sizes = [35.1, 16.1, 6., 4.8, 3.1, 2.8, 2.8, 2.5, 2, 1.7, 23.1]
 explode = (0, 0.1, 0.1, 0.2, 0.2, 0.3, 0.3, 0.3, 0.4, 0.5, 0)  # only "explode" the 2nd slice (i.e. 'UK')
 
 fig1, ax1 = plt.subplots()
