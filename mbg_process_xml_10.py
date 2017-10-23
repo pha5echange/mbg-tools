@@ -1,12 +1,14 @@
-# mbg_process_xml_09.py
-# Version a09
+# mbg_process_xml_10.py
+# Version a10
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
-# Aug 9th 2017
+# Oct 23rd 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
 # Processes XML file `results/mb_artists_mbg_get_artists_url.txt'
+# Writes results to `results/mb_artists_xml.txt'
+# Processes user-tags and writes to seperate, non-duplicate-line file (`results/mb_artists_tags.txt')
 # Gets original MBID's from the en_mb map, to accomodate for id-changes in MB returns
 # Removes duplicate lines
 
@@ -21,7 +23,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-versionNumber = ("a09")
+versionNumber = ("a10")
 appName = ("mbg_process_xml_")
 namespace = "{http://musicbrainz.org/ns/mmd-2.0#}"
 
@@ -53,9 +55,12 @@ print ('\n' + "Process MusicBrainz XML | " + appName + " | Version " + versionNu
 runLog.write ("==========================================================================" + '\n' + '\n')
 runLog.write ("Process MusicBrainz XML | " + appName + " | Version " + versionNumber + '\n' + '\n')
 
-# Open file for writing results
+# Open files for writing results
 resultsPath = os.path.join("results", 'mb_artist_xml_' + versionNumber + '.txt')
 resultsFile = open(resultsPath, 'w')
+
+tagsPath = os.path.join("results", 'mb_artist_tags_' + versionNumber + '.txt')
+tagsFile = open(tagsPath, 'w')
 
 # Get input and process
 xmlInputPath = os.path.join("results", 'mb_artists_mbg_get_artists_url.txt')
@@ -135,11 +140,18 @@ for line in xmlInput:
 		tagName = str(elem.text)
 		tagNames.append(tagName)
 
+
+	# Write results file
 	resultsFile.write(cleanOrigID + '^' + artistID + '^' + artistType + '^' + artistBegin + '^' + artistCountry + '^' + str(tagNames) + '\n')
 
-resultsFile.close()
+	# Write tags file
+	for item in tagNames:
+		tagsFile.write("%s\n" % item)
 
-# Remove duplicates
+resultsFile.close()
+tagsFile.close()
+
+# Remove duplicates in resultsFile
 cleanLineCounter = 0
 lines = open(resultsPath, 'r').readlines()
 lines_set = set(lines)
@@ -149,16 +161,28 @@ for line in sorted(lines_set):
 	out.write(line)
 	cleanLineCounter +=1
 
+# Remove duplicates in tagsFile
+tagLineCounter = 0
+lines = open(tagsPath, 'r').readlines()
+lines_set = set(lines)
+out = open(tagsPath, 'w')
+
+for line in sorted(lines_set):
+	out.write(line)
+	tagLineCounter +=1
+
 # End timing of run
 endTime = datetime.now()
 print
 print ("Complete.")
 print ("Lines processed: " + str(lineCounter))
 print ("Lines written: " + str(cleanLineCounter))
+print ("Tag-lines written: " + str(tagLineCounter))
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 runLog.write ('\n' + "Lines processed: " + str(lineCounter) + '\n')
 runLog.write ("Lines written: " + str(cleanLineCounter) + '\n')
+runLog.write("Tag-lines written: " + str(tagLineCounter) + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 

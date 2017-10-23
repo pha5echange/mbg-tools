@@ -1,4 +1,4 @@
-# MBG-Tools alpha v. 0.1
+# MBG-Tools alpha v. 0.2
 
 by J. M. Gagen
 jmg*AT*phasechange*DOT*info
@@ -6,7 +6,7 @@ j*DOT*gagen*AT*gold*DOT*ac*DOT*uk
 
 www*DOT*phasechange*DOT*info
 
-August 9th 2017
+October 23rd 2017
 
 These scripts have been created to facilitate research into musical genre using MusicBrainz. 
 They acquire raw XML data, and process it.
@@ -29,6 +29,6 @@ This contains a list of MusicBrainz artist IDs, generated from the Echo Nest (se
 
 - `mbg_recording-rels_xml' fetches artists with RECORDING-RELS info
 
-- `mbg_process_xml' deals with the data, and creates a results file for use by ENG Tools (`eng_mbDate')
+- `mbg_process_xml' deals with the data, and creates a result files for use by ENG Tools (`eng_mbDate')
 
 - `mbg_plot_countries' allows manual (hardcoded) plotting of country data
