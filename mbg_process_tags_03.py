@@ -1,5 +1,5 @@
-# mbg_process_tags_02.py
-# Version a02
+# mbg_process_tags_03.py
+# Version a03
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
 # Oct 27th 2017
 
@@ -20,7 +20,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-versionNumber = ("a02")
+versionNumber = ("a03")
 appName = ("mbg_process_tags_")
 
 # Initiate timing of run
@@ -54,6 +54,9 @@ resultsFile = open(resultsPath, 'w')
 
 noTagsPath = os.path.join("results", 'mb_nontagged_artists_' + versionNumber + '.txt')
 noTagsFile = open(noTagsPath, 'w')
+
+tagsListPath = os.path.join("results", 'mb_tags_used_' + versionNumber + '.txt')
+tagsListFile = open(tagsListPath, 'w')
 
 # Get input and process
 artistsInputPath = os.path.join("data", 'artist_list.txt')
@@ -104,6 +107,7 @@ for line in artistsInput:
 		print
 		if item in cleanTagsInput:
 			newArtistTags.append(item)
+			tagsListFile.write(item + '\n')
 
 	if not newArtistTags:
 		noTagsFile.write(cleanOrigID + '^' + artistID + '^' + artistType + '^' + artistBegin + '^' + artistCountry + '^' + str(tagNames) + '\n')
@@ -115,16 +119,30 @@ for line in artistsInput:
 resultsFile.close()
 noTagsFile.close()
 
+# Remove duplicates in tagsListFile
+tagsUsedCounter = 0
+lines = open(tagsListPath, 'r').readlines()
+lines_set = set(lines)
+out = open(tagsListPath, 'w')
+
+for line in sorted(lines_set):
+	out.write(line)
+	tagsUsedCounter +=1
+
+tagsListFile.close()
+
 # End timing of run
 endTime = datetime.now()
 print
 print ("Complete.")
 print ("Tagged Artists: " + str(taggedArtistCounter))
 print ("Non-Tagged Artists: " + str(nonTaggedCounter))
+print ("Tags used: " + str(tagsUsedCounter))
 print ('Date of run: {}'.format(runDate))
 print ('Duration of run : {}'.format(endTime - startTime))
 runLog.write ('\n' + "Tagged Artists: " + str(taggedArtistCounter) + '\n')
 runLog.write ("Non-Tagged Artists: " + str(nonTaggedCounter) + '\n')
+runLog.write ("Tags used: " + str(tagsUsedCounter) + '\n')
 runLog.write ('Date of run: {}'.format(runDate) + '\n')
 runLog.write ('Duration of run : {}'.format(endTime - startTime) + '\n')
 runLog.close()
