@@ -163,12 +163,10 @@ arabic language
 arash sobhani
 arcade
 arena rock
-argentinian
 argentinian stoner band
 aria
 aria urbana
 aria urbană
-armenian
 art metal
 art pop
 art-pop
@@ -444,7 +442,6 @@ cinematic
 cinematic rock
 circus
 circus punk
-clarinet
 classic country
 classic electro
 classic hardcore punk
@@ -794,7 +791,6 @@ experimental-rock
 extreme gothic metal
 extreme metal
 extreme symphonic metal
-fabo
 fado
 fidget house
 field recording
