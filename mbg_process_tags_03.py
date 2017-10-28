@@ -105,6 +105,7 @@ for line in artistsInput:
 		print("Item: ")
 		print(str(item))
 		print
+
 		if item in cleanTagsInput:
 			newArtistTags.append(item)
 			tagsListFile.write(item + '\n')
@@ -118,6 +119,7 @@ for line in artistsInput:
 
 resultsFile.close()
 noTagsFile.close()
+tagsListFile.close()
 
 # Remove duplicates in tagsListFile
 tagsUsedCounter = 0
