@@ -1691,8 +1691,6 @@ prog archives
 prog metal
 prog rock
 prog-rock
-progen
-progg
 progressive
 progressive black metal
 progressive black-death metal
@@ -1965,7 +1963,6 @@ skaldic metal
 skate
 skate punk
 skiffle
-skin
 skinhead
 skinhead reggae
 slager
@@ -2233,8 +2230,6 @@ urban contemporary gospel
 urban folk
 urban gospel
 urban pop
-urbana
-urbano
 usbm
 valentine s day
 vallenato
