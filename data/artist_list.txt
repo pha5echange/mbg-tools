@@ -1,5 +1,5 @@
 071607c3-488d-4d9e-8c0e-c5469ddc4ce3^071607c3-488d-4d9e-8c0e-c5469ddc4ce3^Group^2001-10^AD^[]
-3648db01-b29d-4ab9-835c-83f6a5068fe4^3648db01-b29d-4ab9-835c-83f6a5068fe4^Group^1994^CA^['_fix me_', 'canadian', 'instrumental', 'pop montr\xc3\xa9al', 'post-rock', 'rock and indie']
+3648db01-b29d-4ab9-835c-83f6a5068fe4^3648db01-b29d-4ab9-835c-83f6a5068fe4^Group^1994^CA^['_fix me_', 'canadian', 'instrumental', 'pop_montreal', 'post-rock', 'rock and indie']
 f4c53778-e48d-4da4-9ddd-cc007f715d64^f4c53778-e48d-4da4-9ddd-cc007f715d64^Person^1950-03-26^US^['_not_ god-damn easy listening', 'american', 'back to the future', 'classical', 'easy listening soundtracks and musicals', 'film composer', 'not easy listening', 'predator', 'score', 'score composer', 'soundtrack', 'soundtrack composer', 'who framed roger rabbit?']
 3e8a6653-76a4-4deb-b25a-73c536fad149^3e8a6653-76a4-4deb-b25a-73c536fad149^Person^1969-12-20^GB^['_wip_', 'british', 'dubstep', 'garage', 'hip hop rnb and dance hall', 'producer', 'uk garage']
 6f607087-9c46-4bb2-a884-e4efc764554c^6f607087-9c46-4bb2-a884-e4efc764554c^Person^1978-11-27^GB^['_wip_', 'british', 'english', 'garage', 'hip hop rnb and dance hall', 'hip-hop', 'hiphop', 'london', 'mike skinner', 'rap', 'uk', 'uk garage', 'uk hip hop']

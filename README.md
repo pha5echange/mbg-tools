@@ -26,7 +26,7 @@ The files 'data/en_mb_map.txt' , 'data/artist_list.txt' and 'data/user_tag_list.
 These contain (in order): a list of MusicBrainz artist IDs, generated from the Echo Nest (see the 'eng-tools' repository); 
 a list of artists whose tags will be checked by 'mbg_process_tags': a list of user-tags which are related to genre (manually edited from the full list). 
 
-- 'mbg_process_tags' checks artist tags against the list of genre-related user-generated tags. 
+- 'mbg_process_tags' checks artist tags against the list of genre-related user-generated tags, and generates a folder of genre-based artist lists.  
 
 - 'mbg_get_artists_url' fetches artists from MusicBrainz based on IDs in the Echo Nest map-file
 

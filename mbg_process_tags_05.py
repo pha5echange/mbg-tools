@@ -77,7 +77,7 @@ del cleanTagsInput[:]
 cleanTagCounter = 0
 
 for item in tagsInput:
-	item = item.replace("\n","").replace('/','_')
+	item = item.replace("\n","").replace('/','_').replace(' ','_')
 	cleanTagsInput.append(item)
 	cleanTagCounter += 1
 
@@ -116,7 +116,7 @@ for line in artistsInput:
 	runLog.write (str(artistTags) + '\n' + '\n')
 
 	for item in artistTags:
-		item = item.strip().replace("['","").replace("']","").replace("',","").replace("'","").replace('["','').replace('"]','').replace('/','_') 
+		item = item.strip().replace("['","").replace("']","").replace("',","").replace("'","").replace('["','').replace('"]','').replace('/','_').replace(' ','_')
 		print
 		print("Item: ")
 		print(str(item))
@@ -153,7 +153,6 @@ cleanGenresCounter = 0
 genreFiles = os.listdir("genres")
 for index in range(len(genreFiles)):
 	genrePath = os.path.join("genres", genreFiles[index])
-	genreFile = str(genreFiles[index])
 
 	lines = open(genrePath, 'r').readlines()
 	lines_set = set(lines)
