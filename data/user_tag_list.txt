@@ -1135,7 +1135,6 @@ iran pop singer
 iran rock
 iran rock music
 iran traditional music
-iranian
 iranian folk music
 iranian rock
 iranian rock godfather
@@ -1229,7 +1228,6 @@ korean underground
 kosmische
 kosmos rock
 kpop
-kr
 kraut
 krautrock
 kuduro
@@ -1545,7 +1543,6 @@ organic ambient
 oriental metal
 orthodox
 oshare-key
-osteraker
 ostrock
 outlaw country
 outsider
