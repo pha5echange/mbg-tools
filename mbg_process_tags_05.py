@@ -1,14 +1,15 @@
-# mbg_process_tags_03.py
-# Version a03
+# mbg_process_tags_05.py
+# Version a05
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
-# Oct 27th 2017
+# Oct 28th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
 
 # Uses artist list `data/artist_list.txt' and `data/user_tag_list.txt'
 # Finds artists with genre tags
-# Writes results to `results/mb_tagged_artists.txt' and `results/mb_nontagged_artists.txt'
+# Writes results to `results/mb_tagged_artists.txt', `results/mb_nontagged_artists.txt' and results/mb_tags_used.txt'
+# Writes genres/artistLists
 
 # Import packages
 import os
@@ -20,7 +21,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-versionNumber = ("a03")
+versionNumber = ("a05")
 appName = ("mbg_process_tags_")
 
 # Initiate timing of run
@@ -31,9 +32,9 @@ startTime = datetime.now()
 if not os.path.exists("logs"):
 	os.makedirs("logs")
 
-# Create 'data' subdirectories if necessary
-if not os.path.exists("data"):
-	os.makedirs("data")
+# create 'genres' subdirectory if necessary
+if not os.path.exists("genres"):
+    os.makedirs("genres")
 
 # Create 'results' subdirectories if necessary
 if not os.path.exists("results"):
@@ -67,18 +68,25 @@ tagsInput = open (tagsInputPath, 'r').readlines()
 
 print("Tags Input: ")
 print(str(tagsInput))
+print
+runLog.write ("Tags Input: " + '\n')
+runLog.write (str(tagsInput) + '\n' + '\n')
 
 cleanTagsInput = []
 del cleanTagsInput[:]
+cleanTagCounter = 0
 
 for item in tagsInput:
-	item = item.replace("\n","")
+	item = item.replace("\n","").replace('/','_')
 	cleanTagsInput.append(item)
+	cleanTagCounter += 1
 
 print
 print("Clean Tags Input: ")
 print(str(cleanTagsInput))
 print
+runLog.write ("Clean Tags Input: " + '\n')
+runLog.write (str(cleanTagsInput) + '\n' + '\n')
 
 # DO THE THING
 taggedArtistCounter = 0
@@ -91,35 +99,69 @@ for line in artistsInput:
 	
 	# read line, split, and make list from artists tags
 	cleanOrigID, artistID, artistType, artistBegin,artistCountry, tagNames = line.split("^")
-
+	print
+	print ("New Artist")
+	print
 	print("tagNames: ")
 	print (str(tagNames))
+	runLog.write ('\n' + "New Artist" + '\n')
+	runLog.write ("tagNames: " + '\n')
+	runLog.write (str(tagNames) + '\n' + '\n')
 
 	artistTags = tagNames.split()
 
 	print("artistTags: ")
 	print (str(artistTags))
+	runLog.write ("artistTags: " + '\n')
+	runLog.write (str(artistTags) + '\n' + '\n')
 
 	for item in artistTags:
-		item = item.strip().replace("['","").replace("']","").replace("',","").replace("'","").replace('["','').replace('"]','') 
+		item = item.strip().replace("['","").replace("']","").replace("',","").replace("'","").replace('["','').replace('"]','').replace('/','_') 
+		print
 		print("Item: ")
 		print(str(item))
-		print
 
 		if item in cleanTagsInput:
 			newArtistTags.append(item)
 			tagsListFile.write(item + '\n')
+			genreName = str(item)
+			genresPath = os.path.join("genres", genreName + '.txt')
+			genreArtistList = open(genresPath, 'a')
+			genreArtistList.write(artistID + '^' + artistBegin + '^' + artistCountry + '\n')
+			print("Added " + artistCountry + " artist to " + genreName + " file.")
+			runLog.write ("Added " + artistID + " from " + artistCountry + " to " + genreName + " file." + '\n')
 
-	if not newArtistTags:
-		noTagsFile.write(cleanOrigID + '^' + artistID + '^' + artistType + '^' + artistBegin + '^' + artistCountry + '^' + str(tagNames) + '\n')
-		nonTaggedCounter += 1
-	else:
+	if newArtistTags:
+		# Write resultsFile
 		resultsFile.write(cleanOrigID + '^' + artistID + '^' + artistType + '^' + artistBegin + '^' + artistCountry + '^' + str(newArtistTags) + '\n')
 		taggedArtistCounter += 1
+		print("Artist written to taggedArtists file.")
+		runLog.write (artistID + " written to taggedArtists file." + '\n')
+	else:
+		noTagsFile.write(cleanOrigID + '^' + artistID + '^' + artistType + '^' + artistBegin + '^' + artistCountry + '^' + str(tagNames) + '\n')
+		nonTaggedCounter += 1
+		print("No artist tags. Artist written to noTags file.")
+		runLog.write ("No artist tags for artist " + artistID + ". Written to noTags file." + '\n')
 
 resultsFile.close()
 noTagsFile.close()
 tagsListFile.close()
+genreArtistList.close()
+
+# Remove duplicates in genre files
+cleanGenresCounter = 0
+genreFiles = os.listdir("genres")
+for index in range(len(genreFiles)):
+	genrePath = os.path.join("genres", genreFiles[index])
+	genreFile = str(genreFiles[index])
+
+	lines = open(genrePath, 'r').readlines()
+	lines_set = set(lines)
+	out = open(genrePath, 'w')
+
+	for line in sorted(lines_set):
+		out.write(line)
+		cleanGenresCounter += 1
 
 # Remove duplicates in tagsListFile
 tagsUsedCounter = 0
