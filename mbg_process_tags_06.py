@@ -1,7 +1,7 @@
-# mbg_process_tags_05.py
-# Version a05
+# mbg_process_tags_06.py
+# Version a06
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
-# Oct 28th 2017
+# Oct 29th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -21,7 +21,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-versionNumber = ("a05")
+versionNumber = ("a06")
 appName = ("mbg_process_tags_")
 
 # Initiate timing of run
@@ -77,7 +77,7 @@ del cleanTagsInput[:]
 cleanTagCounter = 0
 
 for item in tagsInput:
-	item = item.replace("\n","").replace('/','_').replace(' ','_')
+	item = item.replace("\n","").replace('/','_').replace(' ','')
 	cleanTagsInput.append(item)
 	cleanTagCounter += 1
 
@@ -108,7 +108,8 @@ for line in artistsInput:
 	runLog.write ("tagNames: " + '\n')
 	runLog.write (str(tagNames) + '\n' + '\n')
 
-	artistTags = tagNames.split()
+	cleanTagNames = tagNames.replace("\n","").replace(' ','').replace('/','_').replace("'","")
+	artistTags = cleanTagNames.split(",")
 
 	print("artistTags: ")
 	print (str(artistTags))
@@ -116,7 +117,7 @@ for line in artistsInput:
 	runLog.write (str(artistTags) + '\n' + '\n')
 
 	for item in artistTags:
-		item = item.strip().replace("['","").replace("']","").replace("',","").replace("'","").replace('["','').replace('"]','').replace('/','_').replace(' ','_')
+		item = item.strip().replace("[","").replace("]","").replace('"','').replace(",","") 
 		print
 		print("Item: ")
 		print(str(item))
