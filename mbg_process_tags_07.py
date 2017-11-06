@@ -1,7 +1,7 @@
-# mbg_process_tags_06.py
-# Version a06
+# mbg_process_tags_07.py
+# Version a07
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
-# Oct 29th 2017
+# Nov 6th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -10,6 +10,7 @@
 # Finds artists with genre tags
 # Writes results to `results/mb_tagged_artists.txt', `results/mb_nontagged_artists.txt' and results/mb_tags_used.txt'
 # Writes genres/artistLists
+# This version fixes dates al-la 'eng_MBdate'
 
 # Import packages
 import os
@@ -21,7 +22,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-versionNumber = ("a06")
+versionNumber = ("a07")
 appName = ("mbg_process_tags_")
 
 # Initiate timing of run
@@ -99,6 +100,36 @@ for line in artistsInput:
 	
 	# read line, split, and make list from artists tags
 	cleanOrigID, artistID, artistType, artistBegin,artistCountry, tagNames = line.split("^")
+
+	# Fix date
+	if not artistBegin:
+		strChars = 0
+	else:
+		strChars = len(artistBegin)
+		artistBegin = artistBegin[:4]
+		if artistBegin == "????":
+			strChars = 0
+		else:
+			try:
+				beginInt = int(artistBegin)
+			except:
+				pass
+
+	# Fix up dates for `Person'
+	if artistType == "Person":
+		try:
+			if strChars > 4:
+				personBegin = beginInt + 20
+				# Deal with those born less than 20 years ago
+				if personBegin >= 2017:
+					personBegin = 2015
+			else:
+				personBegin = beginInt
+
+			artistBegin = str(personBegin)
+		except:
+			pass
+
 	print
 	print ("New Artist")
 	print
