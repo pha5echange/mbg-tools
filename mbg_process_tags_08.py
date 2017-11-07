@@ -1,7 +1,7 @@
-# mbg_process_tags_07.py
-# Version a07
+# mbg_process_tags_08.py
+# Version a08
 # by jmg - jmg*AT*phasechange*DOT*co*DOT*uk
-# Nov 6th 2017
+# Nov 7th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -10,7 +10,7 @@
 # Finds artists with genre tags
 # Writes results to `results/mb_tagged_artists.txt', `results/mb_nontagged_artists.txt' and results/mb_tags_used.txt'
 # Writes genres/artistLists
-# This version fixes dates al-la 'eng_MBdate'
+# This version fixes artist start dates al-la 'eng_MBdate', then re-sorts files by date
 
 # Import packages
 import os
@@ -22,7 +22,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-versionNumber = ("a07")
+versionNumber = ("a08")
 appName = ("mbg_process_tags_")
 
 # Initiate timing of run
@@ -193,6 +193,17 @@ for index in range(len(genreFiles)):
 	for line in sorted(lines_set):
 		out.write(line)
 		cleanGenresCounter += 1
+
+# Re-sort genre files by new start dates
+datedFiles = os.listdir("genres")
+
+for index in range(len(datedFiles)):
+	datedPath = os.path.join("genres", datedFiles[index])
+	sortedFile = sorted(open(datedPath).readlines(), key=lambda line: int(line.split('^')[1]))
+	out = open(datedPath, 'w')
+
+	for line in sortedFile:
+		out.write(line)
 
 # Remove duplicates in tagsListFile
 tagsUsedCounter = 0
