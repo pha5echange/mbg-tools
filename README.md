@@ -26,6 +26,8 @@ The files 'data/en_mb_map.txt' , 'data/artist_list.txt' and 'data/user_tag_list.
 These contain (in order): a list of MusicBrainz artist IDs, generated from the Echo Nest (see the 'eng-tools' repository); 
 a list of artists whose tags will be checked by 'mbg_process_tags': a list of user-tags which are related to genre (manually edited from the full list). 
 
+- 'mb_timeslicer' generates time-limited genre lists (variant of eng-repo 'timeslicer')
+
 - 'mb_cluster' finds clusters of artists within genres (variant of 'eng_cluster.py'). Writes 'data/first_cluster.txt'
 
 - 'mbg_merge_genres' uses 'data/mbg_alternates.txt' to merge genres with their alternates (genres that are the same, other than in name). 
