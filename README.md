@@ -26,6 +26,8 @@ The files 'data/en_mb_map.txt' , 'data/artist_list.txt' and 'data/user_tag_list.
 These contain (in order): a list of MusicBrainz artist IDs, generated from the Echo Nest (see the 'eng-tools' repository); 
 a list of artists whose tags will be checked by 'mbg_process_tags': a list of user-tags which are related to genre (manually edited from the full list). 
 
+- 'mb_nhm' calculates hybridity metrics for networks (variant of 'nhm')
+
 - 'mb_network_multi' makes network-GEXFs from output of 'mb_nodesets'
 
 - 'mb_timeslicer' generates time-limited genre lists (variant of eng-repo 'timeslicer')
