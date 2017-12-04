@@ -1131,7 +1131,6 @@ jive
 jmetal
 jpop
 jrock
-jump
 jump blues
 jump up
 jump up jungle

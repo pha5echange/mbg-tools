@@ -1,7 +1,7 @@
-# mb_network_multi_01.py
-# Version a01
+# mb_network_multi_02.py
+# Version a02
 # by jmg - j.gagen*AT*gold*DOT*ac*DOT*uk
-# Nov 8th 2017
+# Nov 10th 2017
 
 # Licence: http://creativecommons.org/licenses/by-nc-sa/3.0/
 # Source code at: https://github.com/pha5echange/eng-tools
@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 from collections import OrderedDict
 from datetime import datetime
 
-versionNumber = ("a01")
+versionNumber = ("a02")
 
 # Initiate timing of run
 runDate = datetime.now()
@@ -192,10 +192,6 @@ for date in dateList:
 	# Open file for analysis results
 	anPath = os.path.join("results/analysis", 'mb_network_multi_' + versionNumber + '_' + omegaYear + '_analysis.txt')
 	anFile = open(anPath, 'w')
-
-	# Open file to write image
-	#nwImgPath = os.path.join("networks", 'mb_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
-	#nwImg = open (nwImgPath, 'w')
 
 	anFile.write ('\n' + "==========================================================================" + '\n' + '\n')
 	anFile.write ("MB Multi-Network Thing | Version " + versionNumber + '\n' + '\n')
@@ -597,8 +593,11 @@ for date in dateList:
 			print (str(isolateCount) + ' isolated nodes intact.' + '\n')
 			runLog.write('\n' + str(isolateCount) + ' isolated nodes intact.' + '\n')
 
-
 	'''
+	# Open file to write image
+	#nwImgPath = os.path.join("networks", 'mb_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
+	#nwImg = open (nwImgPath, 'w')
+
 	# Plot and display graph
 	# Graph plotting parameters - moved to config file 'config_nw.txt'
 	print ('Reading layout config file...' + '\n')
