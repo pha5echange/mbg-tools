@@ -23,7 +23,7 @@
 # Calculates mean in- and out-degree centrality for each network. Writes {dict}s to analysis files. 
 # Calculates graph flow hierarchy. 
 
-# Run AFTER 'eng_nodesets.py'
+# Run AFTER 'mb_nodesets.py'
 
 # Import packages
 import os
@@ -596,7 +596,6 @@ for date in dateList:
 	'''
 	# Open file to write image
 	#nwImgPath = os.path.join("networks", 'mb_network_' + versionNumber + '_' + omegaYear + '_nw.eps')
-	#nwImg = open (nwImgPath, 'w')
 
 	# Plot and display graph
 	# Graph plotting parameters - moved to config file 'config_nw.txt'
@@ -631,12 +630,14 @@ for date in dateList:
 
 	# write image file
 	print ('Writing image file...' + '\n')
-	plt.savefig(nwImg, format = 'eps', bbox_inches='tight')
-	nwImg.close()
+	plt.savefig(nwImgPath, format = 'eps', bbox_inches='tight')
 
 	# display graph
 	#print ('Displaying graph...' + '\n')
 	#plt.show()
+
+	# Clear plot
+	plt.clf()
 	'''
 
 	# Recalculate basic graph statistics
